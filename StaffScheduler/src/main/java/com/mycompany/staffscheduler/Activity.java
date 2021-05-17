@@ -14,6 +14,7 @@ public class Activity {
     double idealRatio;
     int[] numScheduled;
     int[] numCampers;
+    boolean[] elective;
     
     public Activity(String name, double r)
     {
@@ -21,10 +22,12 @@ public class Activity {
         this.idealRatio = r;    
         numScheduled = new int[6];
         numCampers = new int[6];
+        elective = new boolean[6];
         for(int i = 0; i < 6; i++)
         {
             numScheduled[i] = -1;
             numCampers[i] = 0;
+            elective[i] = false;
         }
     }
 }

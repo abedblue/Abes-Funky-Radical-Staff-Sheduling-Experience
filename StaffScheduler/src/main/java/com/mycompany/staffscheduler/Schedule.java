@@ -82,6 +82,8 @@ public class Schedule
      {24, 3}};
     
     public static String[] activities = {"OFF", "Sailing", "Lake", "Bananna Boat", "Ice Mountain", "Lake Boats", "Lake Intruction", "Lake Recreation", "Swim", "Pool", "Blue Pool", "Pool Party", "Waterslides", "Swim Instruction", "Swim Rec", "Swim Team", "Video Editing", "Video Production", "Ropes", "Ropes & Climbing Wall", "Climbing Wall", "Outdoor Cooking", "Mountain Bikes", "MTB Road Riders", "Hondas", "Quads", "Fishing", "STEM", "Board Games", "Coding", "Lego", "Model Making", "Perler Beads", "Robotics", "Rocketry", "Rubik's Cube", "Weights", "Zumba", "Aerobics", "Bootcamp", "Yoga", "Fitness Center", "Basketball", "Basketball Clinic", "Basketball League", "Varsity", "WNBA", "WNCAA", "NCAA", "NBA", "Hockey", "Floor Hockey", "Roller Hockey", "Hockey Clinic", "Hockey League", "Soccer", "Soccer Clinic", "Soccer League", "Lacrosse", "Ninja Warrior", "Gymnastics", "Gymnastics -Foam Pit", "Gymnastics - Bar, Beam, Floor & Vault", "Softball", "Baseball", "Softball Clinic", "Softball League", "Baseball Clinic", "Baseball League", "MLB", "CBL", "Batting Cage", "Cheer Leading", "Archery", "Flag Football", "Beach Volleyball", "Newcomb", "Volleyball", "Volleyball Leagues", "Volleyball Clinic", "Golf", "SNAG", "Cooking", "Painting", "Glass Fusion", "Art Shack", "Beading & Bracelets", "Calligraphy", "Zendoodle", "T-Shirt Studio", "Dance", "Woodworking", "Dramatic Arts", "Ukulele", "Digital Art & Design", "Photo - Digital", "Ceramics", "Ceramics Wheel", "Crochet", "Gaga", "Kiting", "Magic Tricks", "Mah Jongg", "Old Alma Maters", "Ping Pong", "Tetherball", "Ultimate Frisbee", "Book Club", "Running", "Bunko", "Card Games", "CIT Activity", "Jump Rope Skills", "Kickboxing"};
+    public static double[] activityRatios = {0.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 6.0, 6.0, -1.0, -1.0, -1.0, 8.0, 8.0, 8.0, -1.0, -1.0, 8.0, 6.0, 12.0, 6.0, 10.0, 10.0, 10.0, 6.0, 6.0, 6.0, 8.0, 12.0, 12.0, 12.0, 10.0, 8.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 8.0, 8.0, 8.0, 8.0, 8.0, 12.0, 12.0, 12.0, 5.0, 8.0, 8.0, 8.0, 8.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 5.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 5.0, 8.0, 5.0, 8.0, 12.0, 8.0, 8.0, 8.0, 10.0, 10.0, 10.0, 8.0, 6.0, 6.0, 8.0, 6.0, 10.0, 12.0, 10.0, 6.0, 8.0, 8.0, 8.0, 8.0, 8.0, 15.0, 5.0, 0.0, 12.0, 16.0, 10.0, 8.0};
+    //-1=All staff, 
     public static LinkedList<Activity> myActivities;
     
     Schedule(LinkedList<Employee> myEmployees)
@@ -89,7 +91,7 @@ public class Schedule
         myActivities  = new LinkedList();
         for(int i = 0; i < activities.length; i++)
         {
-            myActivities.add(new Activity(activities[i], 16.0));
+            myActivities.add(new Activity(activities[i], activityRatios[i]));
         }
         
         mySchedule =  new String[myEmployees.size()][8];
@@ -160,9 +162,12 @@ public class Schedule
         return null;
     }
     
-    public static void assignAll(String activity, double idealRatio, int numCampers, int period, LinkedList<Employee> myEmployees)
+    public static void assignAll(String activity, double idealRatio, int numCampers, int period, LinkedList<Employee> myEmployees, double elective)
     {
-        getActivity(activity).numCampers[period - 1] += numCampers;
+        if(myEmployees == Main.directorList)
+        {
+            getActivity(activity).numCampers[period - 1] += numCampers;
+        }        
         
         int numAssigned = 0;
         for(int i = 0; i < mySchedule.length; i++)
@@ -218,10 +223,10 @@ public class Schedule
                 }
             }
 
-            if(((double)assignmentPool.size() + (double)numAssigned) >= ((double)numCampers / idealRatio))
+            if(((double)assignmentPool.size() + (double)numAssigned + (elective * (numCampers/10.0))) >= ((double)numCampers / idealRatio))
             {
                 boolean enoughInPool = true;
-                double requiredCounselors = ((double)numCampers / idealRatio) - (double)numAssigned;
+                double requiredCounselors = ((double)numCampers / idealRatio) - (double)numAssigned - (elective * (numCampers/10.0));
                 while(enoughInPool && requiredCounselors > 0.0 && assignmentPool.size() > 0) //possible issue here with assignment pool's size
                 {
                     int toAssign = (int)(Math.random() * assignmentPool.size());
@@ -234,7 +239,7 @@ public class Schedule
                     }      
                     else
                     {
-                        enoughInPool = ((double)assignmentPool.size() + (double)numAssigned) >= ((double)numCampers / idealRatio);
+                        enoughInPool = ((double)assignmentPool.size() + (double)numAssigned) >= ((double)numCampers / idealRatio) - (elective * (numCampers/10.0));
                     }
                     //need to go back in and factor in skilled employees who have their off period
                     assignmentPool.remove(toAssign);                    
@@ -279,11 +284,11 @@ public class Schedule
         }
         //if this point is reached, there were not enough skilled employees to satisfy the demand
         
-        System.out.println();
-        System.out.println();
-        System.out.println("not enough skilled employees for " + activity + " period " + period + ". assigned: " + numAssigned + " needed: " + ((double)numCampers / idealRatio));
-        System.out.println();
-        System.out.println();
+        if(myEmployees != Main.directorList)
+        {
+            Main.warnings.add("not enough skilled employees for " + activity + " period " + period + ". assigned: " + numAssigned + " needed: " + ((double)numCampers / idealRatio));
+        }
+        
         //need to make a string function to see if a period is occupied/by what based on emoployee name
     }
     
@@ -526,14 +531,14 @@ public class Schedule
         }
     }
     
-    public static void scheduleToExcel() throws FileNotFoundException, IOException, InvalidFormatException
+    public static void scheduleToExcel(String myPath) throws FileNotFoundException, IOException, InvalidFormatException
     {
         XSSFWorkbook workbook = null;
-        File file = new File("Sample.xlsx");
+        File file = new File(myPath);
         FileOutputStream fileOut = new FileOutputStream(file);
         
         workbook = new XSSFWorkbook();
-        XSSFSheet sheet = workbook.createSheet("Sample sheet1");
+        XSSFSheet sheet = workbook.createSheet("Staff Schedule");
         
         for(int i = 0; i < mySchedule.length; i++)
         {
@@ -565,10 +570,18 @@ public class Schedule
             }
         }
         
-        XSSFSheet sheet2 = workbook.createSheet("Sample sheet2");
-        XSSFSheet sheet3 = workbook.createSheet("Sample sheet3");
+        XSSFSheet sheet2 = workbook.createSheet("Staff Per Activity");
+        XSSFSheet sheet3 = workbook.createSheet("Campers Per Activity");
         
         printActivities(true, workbook);
+        
+        XSSFSheet sheet4 = workbook.createSheet("Warnings");
+        for(int i = 0; i < Main.warnings.size(); i++)
+        {
+            workbook.getSheetAt(3).createRow(i);
+            workbook.getSheetAt(3).getRow(i).createCell(0);
+            workbook.getSheetAt(3).getRow(i).getCell(0).setCellValue(Main.warnings.get(i));
+        }
         
         workbook.write(fileOut);
         fileOut.close();
@@ -622,11 +635,18 @@ public class Schedule
                 for(int k = 0; k < myEmployee.skills.size(); k++)
                 {
                     Activity a = getActivity(myEmployee.skills.get(k));
+                    double elective;
+                    elective = 1.0;
+                    //System.out.println(a.elective[firstOff-1]);
+                    if(a != null && !a.name.equals("OFF") && a.elective[firstOff-1])
+                    {
+                        elective = 0.0;
+                    }
                     if(a != null && !a.name.equals("OFF"))
                     {
                         if(a.numScheduled[firstOff - 1] != -1)
                         {
-                            double reqCounselors = (double)a.numCampers[firstOff - 1] / ((double)a.numScheduled[firstOff - 1] * (double)a.idealRatio) - ((double)a.numCampers[firstOff - 1] / (7.0* (double)a.idealRatio));
+                            double reqCounselors = (double)a.numCampers[firstOff - 1] / ((double)a.idealRatio) - ((double)a.numScheduled[firstOff - 1] + (elective * ((double)a.numCampers[firstOff - 1] / (10.0))));
                             if(reqCounselors > mostReqCounselors)
                             {
                                 neededActivity = a.name;
@@ -634,9 +654,14 @@ public class Schedule
                                 mostReqCounselors = reqCounselors;
                             }
                         }
+                        elective = 1.0;
+                        if(a.elective[secondOff-1])
+                        {
+                            elective = 0.0;
+                        }
                         if(a.numScheduled[secondOff - 1] != -1)
                         {
-                            double reqCounselors = (double)a.numCampers[secondOff - 1] / ((double)a.numScheduled[secondOff - 1] * (double)a.idealRatio) - ((double)a.numCampers[secondOff - 1] / (7.0* (double)a.idealRatio));
+                            double reqCounselors = (double)a.numCampers[secondOff - 1] / ((double)a.idealRatio) - ((double)a.numScheduled[secondOff - 1] + (elective * ((double)a.numCampers[secondOff - 1] / (10.0))));
                             if(reqCounselors > mostReqCounselors)
                             {
                                 neededActivity = a.name;
@@ -659,14 +684,18 @@ public class Schedule
                         Activity a = myActivities.get(j);
                         if(a != null && !a.name.equals("OFF") && !a.name.equals("Tennis") && !a.name.equals("Pickle Ball") && !a.name.equals("Sailing") && !a.name.equals("Lake") && !a.name.equals("Banana Boat") && !a.name.equals("Ice Mountain") && !a.name.equals("Lake Boats") && !a.name.equals("Lake Instruction") && !a.name.equals("Lake Recreation") && !a.name.equals("Swim") && !a.name.equals("Pool") && !a.name.equals("Blue Pool") && !a.name.equals("Pool Party") && !a.name.equals("Waterslides") && !a.name.equals("Swim Instruction") && !a.name.equals("Swim Rec") && !a.name.equals("Swim Team") && !a.name.equals("Ropes") && !a.name.equals("Climbing Wall") && !a.name.equals("Ropes & Climbing Wall") && !a.name.equals("Hondas") && !a.name.equals("Quads"))
                         {
-                            
+                        double elective = 1.0;
+                        if(a.elective[firstOff-1])
+                        {
+                            elective = 0.0;
+                        }
                             
                             if(a.numScheduled[firstOff - 1] != -1)
                             {
                                 
                                 
                                 
-                                double reqCounselors = (double)a.numCampers[firstOff - 1] / ((double)a.numScheduled[firstOff - 1] * (double)a.idealRatio) - ((double)a.numCampers[firstOff - 1] / (7.0* (double)a.idealRatio));
+                                double reqCounselors = (double)a.numCampers[firstOff - 1] / ((double)a.idealRatio) - ((double)a.numScheduled[firstOff - 1] + (elective * ((double)a.numCampers[firstOff - 1] / (10.0))));
                                 if(reqCounselors > mostReqCounselors)
                                 {
                                     neededActivity = a.name;
@@ -674,9 +703,15 @@ public class Schedule
                                     mostReqCounselors = reqCounselors;
                                 }
                             }
+                            elective = 1.0;
+                            if(a.elective[secondOff-1])
+                            {
+                                elective = 0.0;
+                            }
+                            
                             if(a.numScheduled[secondOff - 1] != -1)
                             {
-                                double reqCounselors = ((double)a.numCampers[secondOff - 1] / ((double)a.numScheduled[secondOff - 1] * (double)a.idealRatio)) - ((double)a.numCampers[secondOff - 1] / (7.0* (double)a.idealRatio));
+                                double reqCounselors = (double)a.numCampers[secondOff - 1] / ((double)a.idealRatio) - ((double)a.numScheduled[secondOff - 1] + (elective * ((double)a.numCampers[secondOff - 1] / (10.0))));
                                 if(reqCounselors > mostReqCounselors)
                                 {
                                     neededActivity = a.name;

@@ -1,1 +1,6 @@
 com\mycompany\staffscheduler\Main.class
+com\mycompany\staffscheduler\Schedule.class
+com\mycompany\staffscheduler\Activity.class
+com\mycompany\staffscheduler\Employee.class
+com\mycompany\staffscheduler\BunkPopulation.class
+com\mycompany\staffscheduler\UserInterface.class

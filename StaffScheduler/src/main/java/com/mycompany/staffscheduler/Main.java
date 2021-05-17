@@ -29,12 +29,14 @@ public class Main {
     
     //public static final String SAMPLE_XLSX_FILE_PATH = "C:\\Users\\Abe\\Downloads\\Staff Board 2019.xlsx";
     public static LinkedList<Employee> staffList = new LinkedList<Employee>();
+    public static LinkedList<Employee> directorList = new LinkedList<Employee>();
     public static String[] positions = {"Theatre", "Theatre(tech)", "Theatre(dir)", "Theatre(rock band)", "Photography", "Photography(dir)", "Ceramics", "Ceramics(dir)", "Woodworking", "Woodworking(dir)", "Dance", "T-Shirt", "T-shirt(dir)", "Art", "Art(dir)", "Glass", "Glass(dir)", "Painting", "Cooking", "Cooking(dir)", "Minor Sports(golf)", "Minor Sports(VB)", "Minor Sports(FB)", "Minor Sports(Archery)", "Minor Sports(Cheer)", "Baseball/Softball", "Baseball/Softball(dir)", "Gymnastics", "Gymnastics(dir)", "Gymnastics(parkour)", "Lacrosse", "Soccer", "Soccer(dir)", "Hockey", "Basketball", "Basketball(dir)", "Fitness", "Yoga", "Aerobics", "Zumba", "Weights", "STEM", "Fishing", "Hondas", "Hondas(dir)", "Mountain Bikes", "Mountain Bikes(dir)", "Horseback Riding", "Horseback Riding(dir)", "COALS", "COALS(dir)", "Ropes/Wall", "Ropes/Wall(dir)", "Evening Activities", "Canadensis Today/Media", "Canadensis Today/Media(dir)", "Camp Photographer", "Swimming", "Swimming(dir)", "Lake", "Lake(dir)", "Lake(driver)", "Lake(kayak/canoe)", "Lake(sailing)", "Office", "Nurse", "Programming", "Programming(AD)", "Programming(Asst AD)", "Programming(Camp Mom)", "Programming(Parent Relations)", "Programming(Tours)", "General", "General(Group Leader)", "General(JC)", "Ready Staff", "Head Counselor", "Other"};
     public static String[] activities = {"Sailing", "Lake", "Bananna Boat", "Ice Mountain", "Lake Boats", "Lake Intruction", "Lake Recreation", "Swim", "Pool", "Blue Pool", "Pool Party", "Waterslides", "Swim Instruction", "Swim Rec", "Swim Team", "Video Editing", "Video Production", "Ropes", "Ropes & Climbing Wall", "Climbing Wall", "Outdoor Cooking", "Mountain Bikes", "MTB Road Riders", "Hondas", "Quads", "Fishing", "STEM", "Board Games", "Coding", "Lego", "Model Making", "Perler Beads", "Robotics", "Rocketry", "Rubik's Cube", "Weights", "Zumba", "Aerobics", "Bootcamp", "Yoga", "Fitness Center", "Basketball", "Basketball Clinic", "Basketball League", "Varsity", "WNBA", "WNCAA", "NCAA", "NBA", "Hockey", "Floor Hockey", "Roller Hockey", "Hockey Clinic", "Hockey League", "Soccer", "Soccer Clinic", "Soccer League", "Lacrosse", "Ninja Warrior", "Gymnastics", "Gymnastics -Foam Pit", "Gymnastics - Bar, Beam, Floor & Vault", "Softball", "Baseball", "Softball Clinic", "Softball League", "Baseball Clinic", "Baseball League", "MLB", "CBL", "Batting Cage", "Cheer Leading", "Archery", "Flag Football", "Beach Volleyball", "Newcomb", "Volleyball", "Volleyball Leagues", "Volleyball Clinic", "Golf", "SNAG", "Cooking", "Painting", "Glass Fusion", "Art Shack", "Beading & Bracelets", "Calligraphy", "Zendoodle", "T-Shirt Studio", "Dance", "Woodworking", "Dramatic Arts", "Ukulele", "Digital Art & Design", "Photo - Digital", "Ceramics", "Ceramics Wheel", "Crochet", "Gaga", "Kiting", "Magic Tricks", "Mah Jongg", "Old Alma Maters", "Ping Pong", "Tetherball", "Ultimate Frisbee", "Book Club", "Running", "Bunko", "Card Games", "CIT Activity", "Jump Rope Skills", "Kickboxing"};
     public static String divBreakDown = "";//"C:\\Users\\Abe\\Downloads\\2019 Divisional Breakdown as of 6.23.19.xlsx";
     public static String assignmentReview = "";//"C:\\Users\\Abe\\Downloads\\AssignmentReview.xls";
     public static String bunkSchedule = "";//"C:\\Users\\Abe\\Downloads\\Day 3 7.27.19.xlsx";
     public static Schedule mySchedule;
+    public static LinkedList<String> warnings = new LinkedList<String>();
     
     public static boolean isInteger(String strNum) 
     {
@@ -106,9 +108,21 @@ public class Main {
             bufferedWriter.close();
             return true;
         } catch (IOException e) {
-            System.out.println("failure");
+            //System.out.println("failure");
             e.printStackTrace();
             return false;
+        }
+    }
+    
+    public static void updateDirectorList()
+    {
+        directorList.clear();
+        for(int i = 0; i < staffList.size(); i++)
+        {
+            if(staffList.get(i).position.contains("dir"))
+            {
+                directorList.add(staffList.get(i));
+            }
         }
     }
     
@@ -168,6 +182,7 @@ public class Main {
             }
             reader.close();
             bufferedReader.close();
+            updateDirectorList();
             return true; 
         } catch (IOException e) {
             e.printStackTrace();
@@ -219,6 +234,7 @@ public class Main {
         {
             e.skills.add(getActivities(job)[i]);
         }
+        updateDirectorList();
     }
     
     public static void addSkill(Employee e, String skill)
@@ -694,6 +710,7 @@ public class Main {
                 staffList.get(i).position = jobNow;
             }
         }
+        updateDirectorList();
     }
     
     public static void setJobByName(String name, String job)
@@ -706,6 +723,7 @@ public class Main {
                 return;
             }
         }
+        updateDirectorList();
     }
     
     public static Employee getEmployeeByName(String n)
@@ -730,7 +748,9 @@ public class Main {
             if(!dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4)).equals("Tennis") && !dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4)).equals("Pickle Ball") && !dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4)).equals("Sailing") && !dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4)).equals("Lake") && !dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4)).equals("Banana Boat") && !dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4)).equals("Ice Mountain") && !dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4)).equals("Lake Boats") && !dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4)).equals("Lake Instruction") && !dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4)).equals("Lake Recreation") && !dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4)).equals("Swim") && !dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4)).equals("Pool") && !dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4)).equals("Blue Pool") && !dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4)).equals("Pool Party") && !dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4)).equals("Waterslides") && !dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4)).equals("Swim Instruction") && !dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4)).equals("Swim Rec") && !dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4)).equals("Swim Team") && !dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4)).equals("Ropes") && !dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4)).equals("Climbing Wall") && !dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4)).equals("Ropes & Climbing Wall") && !dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4)).equals("Hondas") && !dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4)).equals("Quads"))
             {
                 //System.out.println(dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4)) + " " + Integer.parseInt(dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(11))) + " " + Integer.parseInt(dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(2))));
-                Schedule.assignAll(dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4)), 16.0, Integer.parseInt(dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(11))), Integer.parseInt(dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(2))), staffList);
+                Schedule.assignAll(dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4)), Schedule.getActivity(dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4))).idealRatio, Integer.parseInt(dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(11))), Integer.parseInt(dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(2))), directorList, 0.0);
+                Schedule.assignAll(dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4)), Schedule.getActivity(dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4))).idealRatio, Integer.parseInt(dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(11))), Integer.parseInt(dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(2))), staffList, 0.0);
+                Schedule.getActivity(dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(4))).elective[Integer.parseInt(dataFormatter.formatCellValue(workbook.getSheetAt(0).getRow(i).getCell(2)))] = true;
             }            
         }
         workbook.close();
@@ -946,12 +966,13 @@ public class Main {
                             }
                             else
                             {
-                                Schedule.assignAll(extraction, 20.0, myPop, j, staffList); 
+                                Schedule.assignAll(extraction, Schedule.getActivity(extraction).idealRatio, myPop, j, directorList, 1.0);
+                                Schedule.assignAll(extraction, Schedule.getActivity(extraction).idealRatio, myPop, j, staffList, 1.0); 
                             }                                               
                         }
                         else
                         {                            
-                            System.out.println(toExtract + " not schedled: activity not recognized");
+                            warnings.add(toExtract + " not schedled: activity not recognized");
                         }
                     }           
                 } 
@@ -979,12 +1000,13 @@ public class Main {
                             }
                             else
                             {
-                                Schedule.assignAll(extraction, 20.0, myPop, j, staffList); 
+                                Schedule.assignAll(extraction, Schedule.getActivity(extraction).idealRatio, myPop, j, directorList, 1.0);
+                                Schedule.assignAll(extraction, Schedule.getActivity(extraction).idealRatio, myPop, j, staffList, 1.0); 
                             }                     
                         }
                         else
                         {
-                            System.out.println(toExtract + " not schedled: activity not recognized");
+                            warnings.add(toExtract + " not schedled: activity not recognized");
                         }
                     }           
                 }
@@ -1006,7 +1028,7 @@ public class Main {
             writer.close();
             return true;
         } catch (IOException e) {
-            System.out.println("failure");
+            //System.out.println("failure");
             e.printStackTrace();
             return false;
         }
@@ -1046,6 +1068,8 @@ public class Main {
         Schedule.assignAllStrong("Hondas", employeesWithTitles(getPositions("Hondas")));
         Schedule.assignAllStrong("Camp Photo", employeesWithTitles(new String[] {"Camp Photographer"}));
         
+        warnings = new LinkedList<String>();
+        
         scheduleFromBunkSchedule(bunkSchedule);                
 
         scheduleFromAssignmentReview(assignmentReview);
@@ -1060,8 +1084,6 @@ public class Main {
         Schedule.printActivities(false, null);
         
         BunkPopulation.displayPops();
-        
-        Schedule.scheduleToExcel();
     }
     
     public static void main(String[] args) throws IOException, InvalidFormatException 

@@ -110,7 +110,13 @@ public class UserInterface extends Application {
         CreateExcelSheet.setOnAction(value ->  {
            try
            {
-           Schedule.scheduleToExcel();
+                FileChooser myFileChooser = new FileChooser();
+                File file = myFileChooser.showSaveDialog(primaryStage);   
+                String fileName = file.getPath();
+                if (!fileName.endsWith(".xlsx"))
+                fileName += ".xlsx";
+               
+                Schedule.scheduleToExcel(fileName);
            }
            catch(Exception e)
            {
@@ -457,7 +463,10 @@ public class UserInterface extends Application {
         populateStaff.setOnAction(value ->  {
            try
            {
-           Main.populateStaff("C:\\Users\\Abe\\Downloads\\DAY 2_7.7.19.xls");
+           FileChooser myFileChooser = new FileChooser();
+           File file = myFileChooser.showOpenDialog(primaryStage);      
+               
+           Main.populateStaff(file.getPath());
            update(staffView);
            }
            catch(Exception e)
