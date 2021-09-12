@@ -38,17 +38,17 @@ public class Schedule
      {7, 1}, 
      {8, 1}, 
      {9, 1}, 
-     {10, 4}, 
+     {10, 1}, 
      {11, 4}, 
      {12, 4}, 
      {13, 4}, 
-     {14, 24}, 
+     {14, 4}, 
      {15, 24}, 
      {16, 24}, 
-     {17, 25}, 
+     {17, 24}, 
      {18, 25}, 
      {19, 25}, 
-     {20, 35}, 
+     {20, 25}, 
      {21, 35}, 
      {22, 35}, 
      {23, 35}, 
@@ -65,13 +65,13 @@ public class Schedule
      {7, 1}, 
      {8, 1}, 
      {9, 1}, 
-     {10, 1}, 
+     {10, 4}, 
      {11, 4}, 
      {12, 4}, 
-     {13, 4}, 
+     {13, 24}, 
      {14, 24}, 
      {15, 24}, 
-     {16, 24}, 
+     {16, 25}, 
      {17, 25}, 
      {18, 25}, 
      {19, 25}, 
@@ -79,10 +79,11 @@ public class Schedule
      {21, 35}, 
      {22, 35}, 
      {23, 35}, 
-     {24, 3}};
+     {24, 35},
+     {26, 3}};
     
-    public static String[] activities = {"OFF", "Sailing", "Lake", "Bananna Boat", "Ice Mountain", "Lake Boats", "Lake Intruction", "Lake Recreation", "Swim", "Pool", "Blue Pool", "Pool Party", "Waterslides", "Swim Instruction", "Swim Rec", "Swim Team", "Video Editing", "Video Production", "Ropes", "Ropes & Climbing Wall", "Climbing Wall", "Outdoor Cooking", "Mountain Bikes", "MTB Road Riders", "Hondas", "Quads", "Fishing", "STEM", "Board Games", "Coding", "Lego", "Model Making", "Perler Beads", "Robotics", "Rocketry", "Rubik's Cube", "Weights", "Zumba", "Aerobics", "Bootcamp", "Yoga", "Fitness Center", "Basketball", "Basketball Clinic", "Basketball League", "Varsity", "WNBA", "WNCAA", "NCAA", "NBA", "Hockey", "Floor Hockey", "Roller Hockey", "Hockey Clinic", "Hockey League", "Soccer", "Soccer Clinic", "Soccer League", "Lacrosse", "Ninja Warrior", "Gymnastics", "Gymnastics -Foam Pit", "Gymnastics - Bar, Beam, Floor & Vault", "Softball", "Baseball", "Softball Clinic", "Softball League", "Baseball Clinic", "Baseball League", "MLB", "CBL", "Batting Cage", "Cheer Leading", "Archery", "Flag Football", "Beach Volleyball", "Newcomb", "Volleyball", "Volleyball Leagues", "Volleyball Clinic", "Golf", "SNAG", "Cooking", "Painting", "Glass Fusion", "Art Shack", "Beading & Bracelets", "Calligraphy", "Zendoodle", "T-Shirt Studio", "Dance", "Woodworking", "Dramatic Arts", "Ukulele", "Digital Art & Design", "Photo - Digital", "Ceramics", "Ceramics Wheel", "Crochet", "Gaga", "Kiting", "Magic Tricks", "Mah Jongg", "Old Alma Maters", "Ping Pong", "Tetherball", "Ultimate Frisbee", "Book Club", "Running", "Bunko", "Card Games", "CIT Activity", "Jump Rope Skills", "Kickboxing"};
-    public static double[] activityRatios = {0.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 6.0, 6.0, -1.0, -1.0, -1.0, 8.0, 8.0, 8.0, -1.0, -1.0, 8.0, 6.0, 12.0, 6.0, 10.0, 10.0, 10.0, 6.0, 6.0, 6.0, 8.0, 12.0, 12.0, 12.0, 10.0, 8.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 8.0, 8.0, 8.0, 8.0, 8.0, 12.0, 12.0, 12.0, 5.0, 8.0, 8.0, 8.0, 8.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 5.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 5.0, 8.0, 5.0, 8.0, 12.0, 8.0, 8.0, 8.0, 10.0, 10.0, 10.0, 8.0, 6.0, 6.0, 8.0, 6.0, 10.0, 12.0, 10.0, 6.0, 8.0, 8.0, 8.0, 8.0, 8.0, 15.0, 5.0, 0.0, 12.0, 16.0, 10.0, 8.0};
+    public static String[] activities = {"OFF", "Sailing", "Lake", "Bananna Boat", "Ice Mountain", "Lake Boats", "Lake Intruction", "Lake Recreation", "Swim", "Pool", "Blue Pool", "Pool Party", "Waterslides", "Swim Instruction", "Swim Rec", "Swim Team", "Video Editing", "Video Production", "Ropes", "Ropes & Climbing Wall", "Climbing Wall", "Outdoor Cooking", "Mountain Bikes", "MTB Road Riders", "Hondas", "Quads", "Fishing", "STEM", "Board Games", "Coding", "Lego", "Model Making", "Perler Beads", "Robotics", "Rocketry", "Rubik's Cube", "Weights", "Zumba", "Aerobics", "Bootcamp", "Yoga", "Fitness Center", "Basketball", "Basketball Clinic", "Basketball League", "Varsity", "WNBA", "WNCAA", "NCAA", "NBA", "Hockey", "Floor Hockey", "Roller Hockey", "Hockey Clinic", "Hockey League", "Soccer", "Soccer Clinic", "Soccer League", "Lacrosse", "Ninja Warrior", "Gymnastics", "Gymnastics -Foam Pit", "Gymnastics - Bar, Beam, Floor & Vault", "Softball", "Baseball", "Softball Clinic", "Softball League", "Baseball Clinic", "Baseball League", "MLB", "CBL", "Batting Cage", "Cheer Leading", "Archery", "Flag Football", "Beach Volleyball", "Newcomb", "Volleyball", "Volleyball Leagues", "Volleyball Clinic", "Golf", "SNAG", "Cooking", "Painting", "Glass Fusion", "Art Shack", "Beading & Bracelets", "Calligraphy", "Zendoodle", "T-Shirt Studio", "Dance", "Woodworking", "Dramatic Arts", "Ukulele", "Digital Art & Design", "Photo - Digital", "Ceramics", "Ceramics Wheel", "Crochet", "Gaga", "Kiting", "Magic Tricks", "Mah Jongg", "Old Alma Maters", "Ping Pong", "Tetherball", "Ultimate Frisbee", "Book Club", "Running", "Bunko", "Card Games", "CIT Activity", "Jump Rope Skills", "Kickboxing", "Entrepreneurship ", "Guided Meditation with ", "Track & Field", "Gymnastics - Bar, Beam, "};
+    public static double[] activityRatios = {0.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 6.0, 6.0, -1.0, -1.0, -1.0, 8.0, 8.0, 8.0, -1.0, -1.0, 8.0, 6.0, 12.0, 6.0, 10.0, 10.0, 10.0, 6.0, 6.0, 6.0, 8.0, 12.0, 12.0, 12.0, 10.0, 8.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 8.0, 8.0, 8.0, 8.0, 8.0, 12.0, 12.0, 12.0, 5.0, 8.0, 8.0, 8.0, 8.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 5.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 5.0, 8.0, 5.0, 8.0, 12.0, 8.0, 8.0, 8.0, 10.0, 10.0, 10.0, 8.0, 6.0, 6.0, 8.0, 6.0, 10.0, 12.0, 10.0, 6.0, 8.0, 8.0, 8.0, 8.0, 8.0, 15.0, 5.0, 0.0, 12.0, 16.0, 10.0, 8.0, 7.0, 10.0, 12.0, 8.0};
     //-1=All staff, 
     public static LinkedList<Activity> myActivities;
     
@@ -100,7 +101,7 @@ public class Schedule
             mySchedule[i][0] = myEmployees.get(i).bunk;
             mySchedule[i][1] = myEmployees.get(i).name;
             
-            if(!mySchedule[i][0].equals("OOB"))
+            if(!mySchedule[i][0].equalsIgnoreCase("OOB"))
             {
                 int mybunk = Integer.parseInt(mySchedule[i][0].substring(1)); 
                 //this is where you need to separate boys from girls bunks
@@ -440,7 +441,7 @@ public class Schedule
     
     public static int coverage(String bunk, int period)
     {
-        if(bunk.equals("OOB"))
+        if(bunk.equalsIgnoreCase("OOB"))
         {
             return 10;
         }
