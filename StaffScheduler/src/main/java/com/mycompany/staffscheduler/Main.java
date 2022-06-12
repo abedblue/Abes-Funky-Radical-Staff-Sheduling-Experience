@@ -85,7 +85,7 @@ public class Main {
         return false;
     }
     
-    public static boolean saveStaff()
+    public static boolean saveStaff(String staffFile)
     {
         try {
             FileWriter writer = new FileWriter("StaffList.txt");
@@ -126,7 +126,7 @@ public class Main {
         }
     }
     
-    public static boolean loadStaff()
+    public static boolean loadStaff(String staffFile)
     {
         try {
             staffList = new LinkedList<Employee>();

@@ -194,7 +194,9 @@ public class UserInterface extends Application {
         loadStaff.setOnAction(value ->  {
            try
            {
-           Main.loadStaff();
+           FileChooser myFileChooser = new FileChooser();
+           File file = myFileChooser.showOpenDialog(primaryStage);     
+           Main.loadStaff(file.getPath());
            constructSchedule.setDisable(false);
            update(staffView);
            }
@@ -209,7 +211,9 @@ public class UserInterface extends Application {
            {
            if(!Main.staffList.isEmpty())
            {
-               Main.saveStaff();
+               FileChooser myFileChooser = new FileChooser();
+               File file = myFileChooser.showSaveDialog(primaryStage);     
+               Main.saveStaff(file.getPath());
            }               
            else
            {
