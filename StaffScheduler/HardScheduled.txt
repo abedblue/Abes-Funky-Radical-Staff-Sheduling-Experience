@@ -1,0 +1,15 @@
+j= Canadensis Today/Media(dir); a= Media;;
+j= Basketball(dir); a= Basketball;;
+j= Swimming(dir); a= Pool;;
+j= Art(dir); a= Art Shack;;
+j= Art; a= Art Shack;;
+j= Evening Activities; a= Evening Activities;;
+j= Schedule Later; a= Schedule Later;;
+j= Day Off; a= Day Off;;
+j= Ropes/Wall; a= Ropes/Wall;;
+j= Ropes/Wall(dir); a= Ropes/Wall;;
+a= Lake;;
+a= Hondas;;
+j= Camp Photographer; a= Camp Photo;;
+a= Horses;;
+a= Woodworking;;

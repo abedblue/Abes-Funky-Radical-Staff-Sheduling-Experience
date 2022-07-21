@@ -36,7 +36,7 @@
                         </goals>
                         <configuration>
                             <outputDirectory>
-                                C:/Users/Abe/Documents/NetBeansProjects/StaffScheduler/target/lib
+                                C:\Users\Lauren\Desktop\Staff Scheduler\StaffScheduler\target\lib
                             </outputDirectory>
                         </configuration>
                     </execution>
